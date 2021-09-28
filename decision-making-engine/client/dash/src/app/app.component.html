@@ -1,0 +1,31 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span><b>Cyber-Trust Intrusion Response Engine</b></span>
+    <div class="spacer"></div>
+    <app-step-count></app-step-count>
+    <app-history-lock></app-history-lock>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container class="example-container full-width" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <app-graph type="plot"></app-graph>
+    <app-latency></app-latency>
+    <app-console></app-console>
+    <app-url></app-url>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+      <app-alerts></app-alerts>
+      <app-dash></app-dash>
+  </div>
+
+<!--
+</mat-drawer-container>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div class="spacer"></div>
+    <span>george metsis | george pikramenos</span>
+    <div class="spacer"></div>
+    <span class="love">made with ♥</span> 
+  </mat-toolbar-row>
+</mat-toolbar> -->

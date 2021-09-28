@@ -1,0 +1,4 @@
+<span><b>Triggered alerts:</b></span>
+<div class="flex">
+    <button *ngFor="let alert of alerts" [color]="alert.triggered ? 'warn' : ''" mat-raised-button>{{alert.name}}</button>
+</div>

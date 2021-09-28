@@ -1,0 +1,6 @@
+README.md
+setup.py
+iirs.egg-info/PKG-INFO
+iirs.egg-info/SOURCES.txt
+iirs.egg-info/dependency_links.txt
+iirs.egg-info/top_level.txt

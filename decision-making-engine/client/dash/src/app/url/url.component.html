@@ -1,0 +1,8 @@
+<div class="flex-column">
+  <span><b>Server socket url:</b></span>
+  <mat-form-field>
+    <textarea matInput cols="40" [(ngModel)]="url"></textarea>
+  </mat-form-field>
+  <button *ngIf="(socket.status | async) == 'closed'" mat-button (click)="socket.doConnect(url)">connect</button>
+  <button *ngIf="(socket.status | async) == 'connected'" mat-button (click)="socket.doDisconnect()">disconnect</button>
+</div>

@@ -1,0 +1,7 @@
+*__py*
+
+*.svg
+
+test_cybercaptor_api.py
+
+.env

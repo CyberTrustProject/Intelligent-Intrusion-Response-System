@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    width: 100%;
+}
+
+img {
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    margin: auto;
+    width: 256px;
+    display: none; /* remove this line to show EKPA logo */
+}

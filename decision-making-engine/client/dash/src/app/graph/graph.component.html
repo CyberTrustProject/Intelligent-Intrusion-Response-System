@@ -1,0 +1,15 @@
+<div>
+  <span><b>{{title}} history:</b></span>
+  <mat-slider
+        class="example-margin"
+        [max]="max | async"
+        [min]="1"
+        [step]="1"
+        [thumbLabel]="true"
+        [ngModel]="step | async"
+        (change)="recall($event)">
+    </mat-slider>
+</div>
+
+<span><b>{{title}}</b></span>
+<div [innerHTML]="content"></div>

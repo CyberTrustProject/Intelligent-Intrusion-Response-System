@@ -1,0 +1,38 @@
+
+
+  .example-container {
+    width: 500px;
+    height: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+  }
+
+
+  .full-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 100vh;;
+  }
+
+  .mat-toolbar.mat-primary {
+      background: #1874c2;
+  }
+
+  .love {
+      position: absolute;
+      right: 22px;
+      font-size: 14px;
+  }

@@ -1,0 +1,11 @@
+input {
+    width: 100%;
+}
+
+:host {
+    margin: 22px;
+}
+
+mat-slider {
+    width: 100%;
+}
