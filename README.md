@@ -2,11 +2,6 @@
 
 This repository includes the two major submodules of the iIRS: the *iIRS Attack Graph Generator (iRG)* and *iIRS Decision Making Engine (iRE)*.
 
-## BEFORE PUBLISHING!
-* Check Dockerfiles for gitlab clone commands -> change to github
-* Remove all comments from code.
-* At the very end remove .git and any other hidden folders.
-
 ## iIRS Main Modules
 * [iIRS Attack Graph Generator (iRG) Server](attack-graph-generator/server#iirs-attack-graph-generator-irg-server)
 * [iIRS Attack Graph Generator (iRG) Client](attack-graph-generator/client)
