@@ -29,6 +29,7 @@ RUN apt-get update && apt-get -y upgrade && apt-get install -y \
   wget \
   nano \
   cron \
+  unzip \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir -p /data/build/
@@ -53,8 +54,10 @@ RUN chmod -R +rwx /opt/mulval
 
 WORKDIR /root/.remediation
 COPY --from=intermediate /Intelligent-Intrusion-Response-System/attack-graph-generator/checksums/vulnerability-remediation-database.db.sha256 ./vulnerability-remediation-database.db.sha256
-COPY --from=intermediate /Intelligent-Intrusion-Response-System/attack-graph-generator/vulnerability-remediation-database.db ./vulnerability-remediation-database.db
+COPY --from=intermediate /Intelligent-Intrusion-Response-System/attack-graph-generator/vulnerability-remediation-database.zip ./vulnerability-remediation-database.zip
+RUN unzip vulnerability-remediation-database.zip
 RUN sha256sum --check vulnerability-remediation-database.db.sha256
+RUN rm vulnerability-remediation-database.zip
 ENV VULNERABILITY_DATABASE_PATH /root/.remediation/vulnerability-remediation-database.db
 
 WORKDIR /data/build/
