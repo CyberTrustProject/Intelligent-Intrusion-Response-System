@@ -1,0 +1,88 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#/welcome">Cyber-Trust Attack Graph Engine</a>
+       </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#/welcome">Initialization</a></li>
+            <li class="active"><a href="#/configuration">Configuration</a></li>
+            <li><a href="#/attackGraph">Attack Graph</a></li>
+            <li><a href="#/attackPath">Attack Path</a></li>
+            <li><a href="#/dynamicRiskAnalysis">Dynamic Risk Analysis</a></li>     
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+     <br/><br/><br/>
+
+<div id="reme" configuration-drawing>
+
+  
+
+  <div class="col-md-5">
+   <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Configuration</strong> 
+      <span class="tabulation"> <label>Search : <input type="search" ng-model="Name" placeholder="Enter the name"></label>
+        <span class="tabulation"> <button ng-click="sendListHost()">Save</button> 
+    </div><!-- panel heading -->
+        <div id="config" class="panel-body">
+          <ul ng-repeat-start="(key, data) in listHosts.hosts | listFilter:Name">
+            <b style="font-size:20px">Host: {{ data.index+1 }} <span class="tabulation"> Name: {{ data.name }} </b>
+            <li ng-repeat-start="a in data.security_requirements"> Criticality : {{ a.metric }}
+              <span class="tabulation"> <select ng-init="TheValue = tabTmp[data.index]" ng-model="TheValue" ng-options="item.Value for item in tabMetric" ng-click="updateValue(TheValue, data.index)" ></select> </br>
+            </li>
+              <ul ng-repeat-end></ul>
+          </ul>
+          <ul ng-repeat-end></ul>
+          </ul>
+        </div><!-- panel body -->
+      </div><!-- panel default -->
+    </div><!-- col md -->
+
+    <div class="col-md-6">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <form name="multipleConfig">       
+            <label><input type="radio" ng-model="choice.status" checked="checked" value="patch">Patch</label>
+            <span class="tabulation" />
+            <label><input type="radio" ng-model="choice.status" value="firewallRule">Firewall-Rule</label>
+            <span class="tabulation" />
+          </form>
+         
+            <button ng-click="sendForm(choice.status)"><strong>Save</strong></button>
+        </div><!-- panel heading -->
+
+        <div class="panel-body">
+          <div ng-switch="choice.status">
+
+            <div ng-switch-when="patch">
+              <ul ng-repeat-start="(key, data) in patch.operational_cost_parameters"> 
+                {{ key }} : {{ data }} <span class="tabulation">
+                <label>Value : <input type="number" value="{{data}}"></label></ul>
+              <ul ng-repeat-end></ul>
+            </div>
+
+            <div ng-switch-when="firewallRule">
+              <ul ng-repeat-start="(key, data) in firewall.operational_cost_parameters"> 
+                {{ key }} : {{ data }} <span class="tabulation">
+                <label>Value : <input type="number" value="{{data}}"></label></ul>
+              <ul ng-repeat-end></ul>
+            </div>
+
+           
+        </div><!-- ng switch -->
+      </div><!-- panel body -->
+
+    </div><!-- panel default -->
+  </div><!-- col md -->
+</div>

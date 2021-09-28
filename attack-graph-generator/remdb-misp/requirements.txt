@@ -1,0 +1,8 @@
+tqdm==4.60.0
+flask==1.1.2
+pymisp==2.4.111
+datetime
+urllib3==1.26.4
+wget==3.2
+requests==2.25.1
+bs4==0.0.1

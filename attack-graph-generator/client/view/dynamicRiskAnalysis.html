@@ -1,0 +1,155 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#/welcome">Cyber-Trust Attack Graph Engine</a>
+       </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#/welcome">Initialization</a></li>
+            <li><a href="#/configuration">Configuration</a></li>
+            <li><a href="#/attackGraph">Attack Graph</a></li>
+            <li><a href="#/attackPath">Attack Path</a></li>
+            <li class="active"><a href="#/dynamicRiskAnalysis">Dynamic Risk Analysis</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<br/><br/><br/>
+
+
+
+
+<div class="col-md-9">
+  <div class="panel panel-default">
+    <div class="panel-heading"> 
+      <p><strong>Dynamic Risk Analysis</strong></p>
+    </div><!-- panel heading -->
+    <div class="panel-body">
+      <div class="attack-graph" graph-drawing-dra></div>
+    </div><!-- panel body -->
+  </div><!-- panel default -->
+</div><!-- col md -->
+
+
+<div class="col-md-2">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div id="wholesome"></div><p><strong>Healthy Host</strong></p>
+      <div id="attacked"></div><p><strong>Attacked Host</strong></p>
+   </div><!-- panel body -->
+ </div><!-- panel default -->
+</div><!-- col md -->
+
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <p><strong>Alarm Box</strong><span class="tabulation" />
+        <button ng-click="alertFunc()"><strong>Retrieve Alerts</strong></button></p>
+    </div><!-- panel heading -->
+
+    <div id="tot_remed" class="panel-body">
+
+      <ul ng-repeat-start="data in tabAlert.tab"> 
+        <ul ng-repeat-start="data in data.alerts">
+         
+          <p>{{ data.res }} ago <span class="tabulation" /> 
+          <strong>Name :</strong> {{ data.name }} <span class="tabulation" /> 
+          <strong>Date: </strong> {{ data.date }} <span class="tabulation" />
+          <button ng-click="dra(data)">Visualize</button> <span class="tabulation" /> 
+          <button type="button" ng-click="displayModal()">Remediations</button><br /> 
+          </p>
+
+          <div class="row">
+
+            <div class="col-md-3">
+              <p><ul ng-repeat-start="a in data.CVEs" ng-repeat-end>
+                <strong>CVE :</strong> <a href="{{ a.link }}"> {{ a.CVE }}</a>
+              </ul></p>
+            </div>
+
+            <div class="col-md-4">
+                <li ng-repeat-start="a in data.sources">
+                  <p><strong>Sources</strong> : {{ a }}</p>
+                </li>
+                <ul ng-repeat-end></ul>
+                <br />
+            </div>
+
+            <div class="col-md-3">
+              <li ng-repeat-start="a in data.targets">
+                <p><strong>Targets</strong> : {{ a }}</p>
+              </li>
+              <ul ng-repeat-end></ul>
+              <br />
+
+            </div>
+          </div><!-- row -->
+        </ul>
+        <ul ng-repeat-end></ul>
+      </ul>
+      <ul ng-repeat-end></ul>
+    </div><!-- panel body -->
+  </div><!-- panel default -->
+</div><!-- class col-md-12 -->
+
+
+<!-- Modal content -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Remediations</h4>
+      </div><!-- modal header -->
+
+      <div class="modal-body">
+        <ul ng-repeat-start="(key, data) in draRemed">
+          <p><strong>Remediation {{ key+1 }}</strong></p>
+          <li ng-repeat-start="a in data">
+            <div ng-switch="a.type">
+              <div ng-switch-when="PacketRedirectionRemediation">
+                <p><strong>Type : </strong>Packet Redirection Remediation</p>
+                <p><strong>Action : </strong>{{ a.action }}</p>
+                <p><strong>Source IP : </strong>{{ a.source_ip }}</p>
+                <p><strong>Source Mask : </strong>{{ a.source_mask}}</p>
+                <p><strong>IP tables rule : </strong><pre>{{ a.iptables_rule }}</pre></p>
+                <p><strong>Linux black hole rule : </strong><pre>{{ a.linux_black_hole_rule }}</pre></p>
+                </br>
+              </div>
+
+              <div ng-switch-when="DynamicFirewallRule">
+                <p><strong>Type : </strong>Dynamic Firewall Rule</p>
+                <p><strong>Action : </strong>{{ a.action }}</p>
+                <p><strong>Protocol : </strong>{{ a.protocol }}</p>
+                <p><strong>Source IP : </strong>{{ a.source_ip }}</p>
+                <p><strong>Source Mask : </strong>{{ a.source_mask }}</p>
+                <p><strong>Source port : </strong>{{ a.source_port }}</p>
+                <p><strong>Destination IP : </strong>{{ a.destination_ip }}</p>
+                <p><strong>Destination Mask : </strong>{{ a.destination_mask }}</p>
+                <p><strong>Destination Port : </strong>{{ a.destination_port }}</p>
+                <p><strong>IP Tables Rule : </strong><pre>{{ a.iptables_rule }}</pre></p>
+                </br>
+              </div>
+            </li>
+            <ul ng-repeat-end></ul>
+          </ul>
+          <ul ng-repeat-end></ul>
+        </div><!-- ng switch -->
+    </div><!-- modal body -->
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div><!-- modal footer -->
+    </div>
+
+  </div>
+</div>
+

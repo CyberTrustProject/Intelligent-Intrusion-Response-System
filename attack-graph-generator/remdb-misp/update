@@ -1,0 +1,2 @@
+0 9 * * * python3 /root/remdb-misp/updateFromMisp.py >> /var/log/cron.log 2>&1 >> /var/log/cron.log 2>&1
+# Comment

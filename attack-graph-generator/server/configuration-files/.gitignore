@@ -1,0 +1,12 @@
+*.P
+*.CSV
+*.txt
+*.xml
+old
+*.nessus
+*.xwam
+*.gen
+*.db
+config.properties
+!rules-with-topology.P
+*.bin

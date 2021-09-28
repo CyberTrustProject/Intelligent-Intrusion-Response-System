@@ -1,0 +1,158 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+       <span class="sr-only">Toggle navigation</span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/welcome">Cyber-Trust Attack Graph Engine</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#/welcome">Initialization</a></li>
+        <li><a href="#/configuration">Configuration</a></li>
+        <li><a href="#/attackGraph">Attack Graph</a></li>
+        <li class="active"><a href="#/attackPath">Attack Path</a></li>
+        <li><a href="#/dynamicRiskAnalysis">Dynamic Risk Analysis</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<br/><br/><br/>
+
+
+
+<div class="col-md-9">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <form name="myForm">
+        <strong>Attack Path</strong>
+        <span class="tabulation"> <label><input type="radio" ng-model="view.status" value="Logical" checked="checked">Logical</label></span>
+        <span class="tabulation"> <label><input type="radio" ng-model="view.status" value="Topological">Topological</label></span>
+      </form>
+    </div><!-- panel heading -->
+
+    <div class="panel-body">
+      <div ng-switch="view.status">
+        <div ng-switch-default="Topological">
+          <div class="attack-graph" ng-controller="attackPathTopologicalController" graph-topo-drawing></div>
+        </div><!-- Topological -->
+        <div ng-switch-when="Logical">
+          <div class="attack-graph"  graph-drawing></div>
+        </div><!-- Logical -->
+      </div>
+    </div><!-- panel body -->
+  </div><!-- panel default -->
+</div><!-- col md 9 -->
+
+
+<div class="col-md-2">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <p>Selection</p>
+    </div><!-- panel heading -->
+    <div class="panel-body" class="texte">
+      <p>Select the path : <select ng-model="valSelecter" ng-options="item.Value for item in tab" ng-click="appel(valSelecter)"> </select> </p>
+    </div><!-- panel body -->
+  </div><!-- panel default -->	
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <p>Impact Level</p>
+    </div><!-- panel heading -->
+    <div id="selected" class="panel-body">
+      <p style="text-align:center">
+        <span ng-class="{green: graphes.color == 'green', yellow: graphes.color == 'yellow', orange: graphes.color == 'orange', red: graphes.color == 'red', black: graphes.color == 'black'}"><b>{{ graphes.text }}</b></span>
+      </p>
+      <div ng-controller="RadialGaugeDemoCtrl">
+        <span width="160" ng-radial-gauge ranges="ranges" value="valueGauge" value-unit="unit" precision="precision" lower-limit="lowerLimit" upper-limit="upperLimit"></span>
+      </div>
+    </div><!-- panel body -->
+  </div><!-- panel default -->
+
+  <div class="panel panel-default">
+    <div ng-switch="view.status">
+
+      <div ng-switch-when="Topological">
+        <div class="panel-body">
+         <div><IMG src="img/pirate.png"><p><strong>Host</strong></p></div>
+          <div><IMG src="img/target.png"><p><strong>Target</strong></p></div>
+          <div><IMG src="img/cloud.png"><p><strong>Cloud</strong></p></div>
+        </div>
+      </div>
+
+      <div ng-switch-when="Logical">
+        <div class="panel-body">
+          <div id="vulnerability"></div><p><strong>Leaf with Vulnerability</strong></p>
+          <div id="leaf"></div><p><strong>Leaf</strong></p>  
+          <div id="and"></div><p><strong>And</strong></p>
+          <div id="or"></div><p><strong>Or</strong></p>
+        </div>
+      </div>
+
+   </div><!-- ng-switch -->
+ </div><!-- panel panel default -->
+
+</div>
+
+
+<div id="reme">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong><p>Remediations</strong></p>
+          </div><!-- panel heading -->
+          <div id="tot_remed" class="panel-body">
+
+            <ul ng-repeat-start="remed in dataRemediations">
+              <b style="font-size:20px">Remediation: {{ remed.ID+1 }}</b> <span class="tabulation" /> <b>Risk Reduction</b> : {{ remed.Cost }} € <span class="tabulation" />  <span class="tabulation" /> <a class="btn btn-default" href="#/simulation" role="button" ng-click="simulRemed(remed, valSelecter)">Simulate</a>
+
+              <li ng-repeat-start="(key, a) in remed.DeployReme"> Action {{ key+1 }} : </br>
+                <ul>
+                  <li> 
+                    <b>Type</b> : {{ a.type }} 
+                  </li> 
+                  <li>
+                    <b>Host</b> : {{ a.machine }} 
+                  </li>
+                  <li>
+                    <b>{{ a.label }}</b>
+                  </li>
+                  <ul>
+
+                    <li ng-repeat-start="action in a.action track by $index" ng-repeat-end>
+                      <div ng-switch="a.type">
+                        <div ng-switch-when="patch">
+                          <a href="{{ action }}">{{ action }}</a>
+                        </div>
+
+                        <div ng-switch-when="snort-rules">
+                            <pre>{{ action }}</pre>
+                        </div>
+
+                        <div ng-switch-when="firewall-rule">
+                            <pre>{{ action }}</pre>
+                        </div>
+                      </div><!-- ng switch -->
+                    </li>
+
+                  </ul >
+                </ul>
+              </li>
+              <ul ng-repeat-end></ul>
+            </ul>
+            <ul ng-repeat-end></ul>
+
+            <li ng-repeat="a in remed.DeployReme"> 
+              <li ng-repeat="a in remed.remediation track by $index"> <b> {{ a }} </li> 
+            </li>
+          </div><!-- panel body -->
+        </div><!-- panel default -->
+      </div><!-- col md -->
+    </div><!-- row -->
+</div>

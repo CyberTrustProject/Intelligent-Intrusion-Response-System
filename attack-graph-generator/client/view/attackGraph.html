@@ -1,0 +1,76 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#/welcome">Cyber-Trust Attack Graph Engine</a>
+       </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#/welcome">Initialization</a></li>
+            <li><a href="#/configuration">Configuration</a></li>
+            <li class="active"><a href="#/attackGraph">Attack Graph</a></li>
+            <li><a href="#/attackPath">Attack Path</a></li>
+            <li><a href="#/dynamicRiskAnalysis">Dynamic Risk Analysis</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<br/><br/><br/>
+
+
+
+
+<div class="col-md-9">
+   <div class="panel panel-default">
+    <div class="panel-heading">
+      <form name="myForm">
+        <strong>Attack Graph</strong>
+        <span class="tabulation"> <label><input type="radio" ng-model="view.status" value="Topological" checked="checked">Topological</label></span>
+        <span class="tabulation"> <label><input type="radio" ng-model="view.status" value="Logical">Logical</label></span>
+      </form>
+    </div><!-- panel heading -->
+
+    <div class="panel-body">
+     <div ng-switch="view.status">
+        <div ng-switch-default="Topological">
+          <div class="attack-graph" ng-controller="attackGraphTopologicalController" graph-topo-drawing></div>
+        </div>
+        <div ng-switch-when="Logical">
+          <div class="attack-graph"  graph-drawing></div>
+        </div>
+      </div><!-- ng switch -->
+   </div><!-- panel body -->
+ </div><!-- panel default -->
+</div><!-- col md -->
+
+<div class="col-md-2">
+  <div class="panel panel-default">
+    <div ng-switch="view.status">
+
+      <div ng-switch-when="Topological">
+        <div class="panel-body">
+         <div><IMG src="img/pirate.png"><p><strong>Host</strong></p></div>
+          <div><IMG src="img/target.png"><p><strong>Target</strong></p></div>
+          <div><IMG src="img/cloud.png"><p><strong>Cloud</strong></p></div>
+        </div><!-- panel body -->
+      </div><!-- ng switch -->
+
+      <div ng-switch-when="Logical">
+        <div class="panel-body">
+          <div id="vulnerability"></div><p><strong>Leaf with Vulnerability</strong></p>
+          <div id="leaf"></div><p><strong>Leaf</strong></p>  
+          <div id="and"></div><p><strong>And</strong></p>
+          <div id="or"></div><p><strong>Or</strong></p>
+        </div>
+      </div>
+
+   </div><!-- ng-switch -->
+ </div><!-- panel panel default -->
+</div><!-- class col-md -->
+
+</div>
